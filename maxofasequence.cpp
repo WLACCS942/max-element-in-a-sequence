@@ -7,6 +7,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <limits>
+
 using namespace::std;
 
 int verifyEntry(int entry)//on outside, let a return of 0 mean a quit. pass integer to indicate what value we are checking? (i.e. if we are checking for length, width, etc)
@@ -15,25 +16,11 @@ int verifyEntry(int entry)//on outside, let a return of 0 mean a quit. pass inte
 	{
 		return 0;
 	}
-	if(entry < 0)
-	{
-		cout << "Entry invalid, please enter a non-zero, non-negative, integer value (enter 0 to exit): " ;
-		cin >> entry;
-		while(entry < 0)
-		{
-			cout << "Entry invalid, please enter a non-zero, non-negative, integer value (enter 0 to exit): ";
-			cin >> entry;
-			if(entry == 0)
-			{
-				break;
-			}
-		}
-		return entry;
-	}
+
 }
 int main()
 {
-	int max,next = numeric_limits<int>::min();
+	int max,next,min = numeric_limits<int>::min();
 	int n = 0;
 	int counter = 1;
 	int entry;
@@ -45,23 +32,27 @@ int main()
 	n = verifyEntry(entry);
 	
 	cout << "Now, enter each element of the sequence. If you made a mistake with" << endl;
-	cout << "the total number of elements, simply put a number lower than the " << endl;
+	cout << "the total number of elements, simply put a number smaller than the " << endl;
 	cout << "smallest number in the sequence (i.e. if the minumum is 1, then " << endl;
 	cout << "entering -1 for any unused primed elements will be discounted)" << endl;
 	
 	cin >> entry;
-	max = verifyEntry(entry);
+	max = entry;
+	min = entry;
 	do{
 		cin >> next;
-		next = verifyEntry(next);
 		if(max <= next)
 		{
 			max = next;
 		}
+		if(min >= next)
+		{
+			min = next;
+		}
 		counter++;
 	}while(counter <= (n - 1));
 	
-	cout << "max is " << max << ". Double strike enter to exit this prompt." << endl;
+	cout << "max is " << max << ". Min is " << min << ". Double strike enter to exit this prompt." << endl;
 	system("PAUSE");
 }
 	
